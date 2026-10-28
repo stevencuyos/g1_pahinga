@@ -688,12 +688,18 @@ body{--field-border:color-mix(in srgb,var(--text-muted) 45%,transparent)}
 .pc-tag.role{background:var(--blue-bg);color:var(--blue-txt);border-color:var(--blue-border)}
 
 /* coverage cards */
-#covChips{gap:10px;margin-top:12px}
-.cov-card{display:flex;align-items:center;gap:10px;padding:6px 8px 6px 6px;border:1.5px solid var(--field-border);border-radius:999px;background:var(--bg-surface);box-shadow:var(--shadow-sm)}
-.cov-name{font-size:13px;font-weight:700;color:var(--text-main);line-height:1.15}
-.cov-sub{font-size:10.5px;color:var(--text-muted)}
-.cov-x{width:22px;height:22px;border-radius:50%;border:none;background:var(--bg-cell-hover);color:var(--text-muted);font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+#covChips{gap:8px;margin-top:12px;display:flex;flex-wrap:wrap}
+.cov-card{display:inline-flex;align-items:center;gap:8px;padding:4px 10px 4px 4px;border:1.5px solid var(--field-border);border-radius:999px;background:var(--bg-surface);box-shadow:var(--shadow-sm);transition:all 0.15s ease}
+.cov-card:hover{border-color:var(--blue-main)}
+.cov-card .cov-info{display:flex;align-items:center;gap:4px;font-size:13px;line-height:1}
+.cov-card .cov-name{font-weight:700;color:var(--text-main)}
+.cov-card .cov-site{font-size:11px;color:var(--text-muted);font-weight:500}
+.cov-x{width:20px;height:20px;border-radius:50%;border:none;background:var(--bg-cell-hover);color:var(--text-muted);font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-left:2px}
 .cov-x:hover{background:var(--red-bg);color:var(--red-main)}
+
+/* coverage suggested chips */
+.cov-suggest-chip{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border:1.5px solid var(--border-light);border-radius:999px;background:var(--bg-surface);cursor:pointer;transition:all 0.15s ease;font-size:13px;font-weight:600;color:var(--text-main)}
+.cov-suggest-chip:hover{border-color:var(--blue-main);background:var(--blue-bg)}
 
 /* buttons: one row, Review & Submit larger */
 .original-form-card .sub-btn{background:var(--blue-main);color:var(--bg-surface)}
@@ -2214,10 +2220,12 @@ body.theme-warm-dark {
   background: var(--yellow-bg) !important;
   color: var(--yellow-txt) !important;
   border-color: color-mix(in srgb, var(--yellow-main) 35%, transparent);
+  font-weight: 700;
 }
 .sch-h.hm-ok {
-  background: color-mix(in srgb, var(--green-main) var(--hm-alpha, 22%), var(--bg-surface)) !important;
+  background: var(--green-bg) !important;
   color: var(--green-txt) !important;
+  border-color: color-mix(in srgb, var(--green-main) 35%, transparent);
 }
 .sch-c.hm-active {
   outline: 2px solid var(--blue-main);
@@ -2402,10 +2410,12 @@ body.theme-warm-dark {
   background: var(--yellow-bg) !important;
   color: var(--yellow-txt) !important;
   border-color: color-mix(in srgb, var(--yellow-main) 35%, transparent);
+  font-weight: 700;
 }
 .sch-h.hm-ok {
-  background: color-mix(in srgb, var(--green-main) var(--hm-alpha, 22%), var(--bg-surface)) !important;
+  background: var(--green-bg) !important;
   color: var(--green-txt) !important;
+  border-color: color-mix(in srgb, var(--green-main) 35%, transparent);
 }
 .sch-c.hm-active {
   outline: 2px solid var(--blue-main);
@@ -2460,6 +2470,11 @@ body.theme-warm-dark {
 
     <!-- ══ VL SIDEBAR ══ -->
     <div id="vlSidebar" style="display:flex;flex-direction:column;gap:16px;padding-top:8px">
+      <div style="display:flex;justify-content:flex-end;margin:0 4px -8px 0">
+        <button type="button" class="theme-btn" onclick="toggleSidebar()" title="Collapse sidebar" aria-label="Collapse sidebar" style="width:32px;height:32px">
+          <span class="material-symbols-rounded" style="font-size:18px">chevron_left</span>
+        </button>
+      </div>
       <button class="btn-create btn-play-shine" id="btnCreateVL" onclick="openFormForCurrentMonth()">
         <span class="material-symbols-rounded" style="font-size:28px">add</span>
         Request VL
@@ -2483,10 +2498,12 @@ body.theme-warm-dark {
       </div>
       <div class="filter-section">
         <div class="filter-title">Role</div>
-        <label class="legend-item"><input type="checkbox" checked value="SME" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--green-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">SME</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Supervisor" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--blue-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Supervisor</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Intern TC" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--orange-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Intern TC</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Temp SME" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--purple-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Temp SME</span></label>
+        <div id="roleFilterContainer">
+          <label class="legend-item"><input type="checkbox" checked value="SME" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--green-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">SME</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Supervisor" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--blue-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Supervisor</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Intern TC" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--orange-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Intern TC</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Temp SME" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--purple-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Temp SME</span></label>
+        </div>
       </div>
       <div class="filter-section">
         <div class="filter-title">Status</div>
@@ -3183,6 +3200,7 @@ function loadDashboard(){
       if(!cfg||typeof cfg!=='object')cfg={isOpen:true,closedMsg:"",isSupervisor:false,isAdmin:false};
       window.appConfig=cfg;
       window.roster=Array.isArray(payload.roster)?payload.roster:[];
+      renderRoleFiltersFromRoster();
       if(!cfg.isOpen){
         var existing=document.getElementById('closedBannerEl');
         if(existing)existing.remove();
@@ -3492,6 +3510,42 @@ function saveSettings() {
     };
     localStorage.setItem('vl_settings', JSON.stringify(settings));
   } catch(e) {}
+}
+
+function renderRoleFiltersFromRoster() {
+  var container = document.getElementById('roleFilterContainer');
+  if (!container) return;
+  var roster = Array.isArray(window.roster) ? window.roster : [];
+  var roles = [];
+  roster.forEach(function(r) {
+    if (r && r.role) {
+      var roleName = String(r.role).trim();
+      if (roleName && !roles.includes(roleName)) {
+        roles.push(roleName);
+      }
+    }
+  });
+
+  if (roles.length === 0) return; // Keep existing default markup if empty
+
+  var colorVars = ['var(--green-main)', 'var(--blue-main)', 'var(--orange-main)', 'var(--purple-main)', 'var(--teal-main)', 'var(--pink-main)'];
+  var html = '';
+  roles.forEach(function(role, idx) {
+    var dotColor = colorVars[idx % colorVars.length];
+    html += '<label class="legend-item"><input type="checkbox" checked value="' + role.replace(/"/g, '&quot;') + '" class="ch-filter"><div class="legend-dot" style="--dot-color:' + dotColor + '"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">' + role + '</span></label>';
+  });
+
+  container.innerHTML = html;
+
+  // Bind change listeners to new checkboxes
+  container.querySelectorAll('input[type="checkbox"]').forEach(function(chk) {
+    chk.addEventListener('change', function() {
+      saveSettings();
+      renderCalendar();
+    });
+  });
+
+  loadSettings();
 }
 
 function loadSettings() {
@@ -6565,7 +6619,15 @@ function renderCalendar(){
     var dayData = eventsByDate[dateStr] || [];
     var rawDayEvents = dayData.filter(function(e){
       var stat=getStatProps(e.status);
-      return activeSites.includes(e.site)&&activeChans.includes(e.role)&&activeStats.includes(stat.key)&&activeReasons.includes(e.vlType)&&e.ldap.toLowerCase().includes(searchQuery);
+      var eSite=(e.site||'').toUpperCase();
+      var eRole=e.role||'';
+      var eVlType=e.vlType||'';
+      var matchSite=!activeSites.length || activeSites.includes(eSite) || activeSites.some(function(s){return s.toUpperCase()===eSite});
+      var matchRole=!activeChans.length || activeChans.includes(eRole) || activeChans.some(function(r){return r.toLowerCase()===eRole.toLowerCase()});
+      var matchStat=!activeStats.length || activeStats.includes(stat.key);
+      var matchReason=!activeReasons.length || activeReasons.includes(eVlType) || activeReasons.some(function(r){return r.toLowerCase()===eVlType.toLowerCase()});
+      var matchSearch=!searchQuery || (e.ldap||'').toLowerCase().includes(searchQuery) || (e.email||'').toLowerCase().includes(searchQuery);
+      return matchSite && matchRole && matchStat && matchReason && matchSearch;
     });
     var dayEvents=[],seenKeys=new Set();
     rawDayEvents.forEach(function(e){var k=e.id;if(!seenKeys.has(k)){seenKeys.add(k);dayEvents.push(e)}});
@@ -6616,7 +6678,15 @@ function showDayOverflow(ev,dateStr){
     var dayEvents=serverEvents.filter(function(e){
       if(e.date!==dateStr||seen[e.id])return false;
       var stat=getStatProps(e.status);
-      if(!(activeSites.includes(e.site)&&activeChans.includes(e.role)&&activeStats.includes(stat.key)&&activeReasons.includes(e.vlType)&&e.ldap.toLowerCase().includes(searchQuery)))return false;
+      var eSite=(e.site||'').toUpperCase();
+      var eRole=e.role||'';
+      var eVlType=e.vlType||'';
+      var matchSite=!activeSites.length || activeSites.includes(eSite) || activeSites.some(function(s){return s.toUpperCase()===eSite});
+      var matchRole=!activeChans.length || activeChans.includes(eRole) || activeChans.some(function(r){return r.toLowerCase()===eRole.toLowerCase()});
+      var matchStat=!activeStats.length || activeStats.includes(stat.key);
+      var matchReason=!activeReasons.length || activeReasons.includes(eVlType) || activeReasons.some(function(r){return r.toLowerCase()===eVlType.toLowerCase()});
+      var matchSearch=!searchQuery || (e.ldap||'').toLowerCase().includes(searchQuery) || (e.email||'').toLowerCase().includes(searchQuery);
+      if(!(matchSite && matchRole && matchStat && matchReason && matchSearch)) return false;
       seen[e.id]=1;return true;
     });
 
@@ -6890,8 +6960,8 @@ function renderCovSuggestions(){
 
   if(suggestions.length > 0){
     chips.innerHTML = suggestions.map(function(p){
-      return '<div class="chip" style="padding:4px 10px 4px 4px;font-size:12px;" onclick="addCoverage(\'' + p.ldap + '\')">' +
-             avatarHtml(p.ldap,'sm') + '<span style="margin-left:6px">' + p.ldap + '</span></div>';
+      return '<div class="cov-suggest-chip" onclick="addCoverage(\'' + p.ldap + '\')">' +
+             avatarHtml(p.ldap,'sm') + '<span>' + _escHtml(p.ldap) + '</span></div>';
     }).join('');
     wrap.style.display='block';
   } else {
@@ -6959,10 +7029,10 @@ function removeCoverage(l){_covSel=_covSel.filter(function(x){return x!==l});ren
 function renderCovChips(){
   document.getElementById('covChips').innerHTML=_covSel.map(function(l){
     var p=(window.roster||[]).find(function(x){return x.ldap===l})||{};
-    var sub=(p.name||'')+(p.site?' · '+p.site:'');
+    var siteText=p.site?' · '+p.site:'';
     return '<div class="cov-card">'+avatarHtml(l,'sm')+
-      '<div><div class="cov-name">'+l+'</div><div class="cov-sub">'+_escHtml(sub)+'</div></div>'+
-      '<button type="button" class="cov-x" aria-label="Remove '+l+'" onclick="removeCoverage(\''+l+'\')">×</button></div>';
+      '<div class="cov-info"><span class="cov-name">'+_escHtml(l)+'</span><span class="cov-site">'+_escHtml(siteText)+'</span></div>'+
+      '<button type="button" class="cov-x" aria-label="Remove '+_escHtml(l)+'" onclick="removeCoverage(\''+l+'\')">×</button></div>';
   }).join('');
   checkCoverageConflicts();
 }

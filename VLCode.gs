@@ -300,13 +300,23 @@ function getRoster() {
   var out = [];
   try {
     var vals  = getOrCreateSupervisorSheet().getDataRange().getValues();
+    if (vals.length < 2) return out;
     var clean = function(s) { return (s || "").toString().replace(/[<>&"']/g, "").trim(); };
+    var headers = vals[0].map(function(h) { return h.toString().replace(/[^a-zA-Z0-9]/g, "").toLowerCase(); });
+
+    var colNick  = headers.indexOf("nickname") >= 0 ? headers.indexOf("nickname") : 0;
+    var colEmail = headers.indexOf("email") >= 0 ? headers.indexOf("email") : 1;
+    var colSite  = headers.indexOf("site") >= 0 ? headers.indexOf("site") : 2;
+    var colLdap  = headers.indexOf("ldap") >= 0 ? headers.indexOf("ldap") : 3;
+    var colRole  = headers.indexOf("role") >= 0 ? headers.indexOf("role") : 4;
+
     for (var i = 1; i < vals.length; i++) {
-      var email = (vals[i][1] || "").toString().trim().toLowerCase();
-      var role  = clean(vals[i][4]);
+      var email = (vals[i][colEmail] || "").toString().trim().toLowerCase();
+      var role  = clean(vals[i][colRole]);
       if (!email || !role) continue;
-      var ldap = ((vals[i][3] || "").toString().trim().toLowerCase() || email.split("@")[0]).replace(/[^a-z0-9._-]/g, "");
-      out.push({ ldap: ldap, name: clean(vals[i][0]), site: clean(vals[i][2]).toUpperCase(), role: role });
+      var rawLdap = (vals[i][colLdap] || "").toString().trim().toLowerCase();
+      var ldap = (rawLdap || email.split("@")[0]).replace(/[^a-z0-9._-]/g, "");
+      out.push({ ldap: ldap, name: clean(vals[i][colNick]), site: clean(vals[i][colSite]).toUpperCase(), role: role });
     }
     _safeCachePut("vl_roster", out, 300);
   } catch(e) { _log("ERROR", "getRoster", e.message); }
@@ -341,9 +351,11 @@ function getCalendarData() {
       var ldap  = g(row, "ldap");
       if (!rawTs || !ldap) continue;
 
-      var startYmd = colMap["vlstartdate"] !== undefined ? _toYmd(row[colMap["vlstartdate"]], tz) : "";
+      var startVal = colMap["vlstartdate"] !== undefined ? row[colMap["vlstartdate"]] : (colMap["startdate"] !== undefined ? row[colMap["startdate"]] : "");
+      var endVal   = colMap["vlenddate"] !== undefined ? row[colMap["vlenddate"]] : (colMap["enddate"] !== undefined ? row[colMap["enddate"]] : "");
+      var startYmd = _toYmd(startVal, tz);
       if (!startYmd) continue;
-      var endYmd = colMap["vlenddate"] !== undefined ? _toYmd(row[colMap["vlenddate"]], tz) : "";
+      var endYmd = _toYmd(endVal, tz);
       if (!endYmd || endYmd < startYmd) endYmd = startYmd;
       if (endYmd < cutoff) continue;
 
