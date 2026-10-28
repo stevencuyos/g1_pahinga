@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════
-//  Project Pahinga — Support VL Calendar & Schedule Management
+//  Project Pahinga — G1 Support VL Calendar & Schedule Management
 //  Code.gs  v9.0 — Indexed, Stateless, Rate-Limited
 // ══════════════════════════════════════════════════════
 
@@ -120,10 +120,10 @@ function _getRowIndex(sheet) {
 // ── SHEET HELPERS ─────────────────────────────────────
 function doGet() {
   return HtmlService.createHtmlOutputFromFile('VLIndex')
-    .setTitle('Pahinga - Support VL Calendar')
+    .setTitle('G1 Pahinga - Calendar')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
-    .setFaviconUrl('https://www.gstatic.com/android/market_images/web/favicon_v2.ico');
+    .setFaviconUrl('https://www.google.com/favicon.ico');
 }
 
 function getSessionEmail() {
@@ -932,7 +932,7 @@ function _mailShell(o) {
     : "";
   return '<div style="background:#f5f5f7;padding:32px 12px;font-family:' + MAIL_FONT + ';-webkit-font-smoothing:antialiased;">' +
     '<div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:28px;overflow:hidden;">' +
-      '<div style="padding:30px 44px 0;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#1d1d1f;">Pahinga<span style="color:#a1a1a6;font-weight:500;letter-spacing:.14em;">&nbsp;&nbsp;/&nbsp;&nbsp;Play Support</span></div>' +
+      '<div style="padding:30px 44px 0;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#1d1d1f;">G1 Pahinga<span style="color:#a1a1a6;font-weight:500;letter-spacing:.14em;">&nbsp;&nbsp;/&nbsp;&nbsp;Google One Support</span></div>' +
       '<div style="padding:52px 44px 10px;">' +
         '<div style="font-size:13px;font-weight:600;letter-spacing:.01em;color:' + accent + ';"><span style="display:inline-block;width:8px;height:8px;border-radius:4px;background:' + accent + ';margin-right:9px;vertical-align:1px;"></span>' + _mailEsc(o.eyebrow) + '</div>' +
         '<h1 style="margin:16px 0 0;font-size:40px;line-height:1.08;font-weight:600;letter-spacing:-.03em;color:#1d1d1f;">' + _mailEsc(o.title) + '</h1>' +
@@ -942,7 +942,7 @@ function _mailShell(o) {
         '<table role="presentation" style="width:100%;border-collapse:collapse;border-bottom:1px solid #e8e8ed;">' + _mailRows(o.rows || []) + '</table>' +
         cta + (o.blocks || []).join("") +
       '</div>' +
-      '<div style="padding:22px 44px 30px;background:#fbfbfd;border-top:1px solid #f0f0f3;font-size:12px;line-height:1.6;color:#86868b;">' + (o.footer || "Automated notification from Pahinga · gUP Play Ops") + '</div>' +
+      '<div style="padding:22px 44px 30px;background:#fbfbfd;border-top:1px solid #f0f0f3;font-size:12px;line-height:1.6;color:#86868b;">' + (o.footer || "Automated notification from G1 Pahinga · gUP Google One Ops") + '</div>' +
     '</div></div>';
 }
 
@@ -987,7 +987,7 @@ function createVLEmailTemplate(m, dashLink) {
     ],
     link: dashLink, linkLabel: "Open Pahinga",
     blocks: blocks,
-    footer: "Submitted " + _mailEsc(m.filed) + " · Reason: " + _mailEsc(m.reason || "—") + "<br>Ref " + _mailEsc(m.confirmation || "N/A") + " · Automated notification from Pahinga · gUP Play Ops"
+    footer: "Submitted " + _mailEsc(m.filed) + " · Reason: " + _mailEsc(m.reason || "—") + "<br>Ref " + _mailEsc(m.confirmation || "N/A") + " · Automated notification from G1 Pahinga · gUP Google One Ops"
   });
 }
 
@@ -1045,7 +1045,7 @@ function sendVLNotifications() {
       }, link);
 
       try {
-        MailApp.sendEmail({ to: to, subject: emoji + " Google Play VL Calendar Update - " + status, htmlBody: html, name: "Play VL Calendar · Google Play", noReply: true });
+        MailApp.sendEmail({ to: to, subject: emoji + " Google One VL Calendar Update - " + status, htmlBody: html, name: "G1 VL Calendar · Google One", noReply: true });
         sheet.getRange(i + 2, sentColIdx + 1).setValue(Utilities.formatDate(new Date(), tz, "MM/dd/yy HH:mm") + " by " + actor.split("@")[0]);
         sent++;
         _log("INFO", "sendVLNotifications", "Email sent", { ldap: g(row, "ldap"), status: status });
@@ -1896,7 +1896,7 @@ function _managerEmails(site) {
 
 function _sendMgrMail(to, subject, html) {
   if (!to.length || MailApp.getRemainingDailyQuota() < to.length) return;
-  MailApp.sendEmail({ to: to.join(","), subject: subject, htmlBody: html, name: "Play VL Calendar · Google Play", noReply: true });
+  MailApp.sendEmail({ to: to.join(","), subject: subject, htmlBody: html, name: "G1 VL Calendar · Google One", noReply: true });
 }
 
 // rows: [[label, htmlValue]] (values must already be escaped). color = accent dot colour; bg is ignored (kept for older callers).
@@ -1947,7 +1947,7 @@ function _notifyScheduleChanges(applied, actor) {
         list.length + ' day' + (list.length > 1 ? 's' : '') + ' on your schedule ' + (list.length > 1 ? 'were' : 'was') + ' updated by <strong>' + _mailEsc(me.split("@")[0]) + '</strong>.',
         rows, link, "View my schedule");
       try {
-        MailApp.sendEmail({ to: email, subject: "🗓️ Your schedule was updated", htmlBody: html, name: "Play VL Calendar · Google Play", noReply: true });
+        MailApp.sendEmail({ to: email, subject: "🗓️ Your schedule was updated", htmlBody: html, name: "G1 VL Calendar · Google One", noReply: true });
       } catch (m) { _log("ERROR", "_notifyScheduleChanges", "Mail failed for " + email, { err: m.message }); }
     });
   } catch (e) { _log("ERROR", "_notifyScheduleChanges", e.message); }
@@ -2167,7 +2167,7 @@ function removeVLDays(eventUuid, days, note) {
       var rows = [["Removed", _mailEsc(pretty(goneSegs))], ["Still on", _mailEsc(pretty(keepSegs))], ["Type", _mailEsc(rowVals[colMap["vltype"]] || "—")]];
       if (!isOwner) {
         if (MailApp.getRemainingDailyQuota() > 0) {
-          MailApp.sendEmail({ to: owner, subject: "Google Play VL Calendar Update - Days cancelled", name: "Play VL Calendar · Google Play", noReply: true,
+          MailApp.sendEmail({ to: owner, subject: "Google One VL Calendar Update - Days cancelled", name: "G1 VL Calendar · Google One", noReply: true,
             htmlBody: _infoMail("VL request · Updated", "#b06000", "", "Some days were cancelled.",
               "A supervisor removed <strong style=\"color:#1d1d1f;\">" + rm.length + " day" + (rm.length > 1 ? "s" : "") + "</strong> from your leave.", rows, link, "Open Pahinga") });
         }

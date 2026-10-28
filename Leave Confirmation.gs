@@ -13,8 +13,8 @@ const CONFIG = {
   SHEET_NAME:          "Leave Results",
   LOG_SHEET_NAME:      "Update Log 1.0",
   ADMIN_EMAIL:         "stevenjosephc@google.com",           // ← Your email for summaries & error reports
-  REPLY_TO_EMAIL:      "gup-play-ops@google.com",    // ← Reply-to address for agents
-  SENDER_NAME:         "gUp Play Support System",
+  REPLY_TO_EMAIL:      "gup-googleone-ops@google.com",    // ← Reply-to address for agents
+  SENDER_NAME:         "G1 Support System",
   DASHBOARD_LINK:      "https://docs.google.com/spreadsheets/d/1RTDHOg74c92d3jTivh5qA6XgpRPPsHPYsX6nTTl_aPs/edit?gid=727043204#gid=727043204",
 
   // Update Log: only watch these columns (1-indexed) on the Leave Results sheet
@@ -167,7 +167,7 @@ function _runNotificationsCore(isDryRun) {
       const formattedDate = Utilities.formatDate(new Date(vlDate), Session.getScriptTimeZone(), "MMMM dd, yyyy");
       const lowerStatus   = status.toString().toLowerCase();
 
-      const subject   = `Play Leave Application - ${status}`;
+      const subject   = `G1 Leave Application - ${status}`;
       const emailBody = createEmailTemplate(
         ldap, formattedDate, status, queue, team, reason,
         workgroupCombined, comments, timestamp, "",
@@ -361,7 +361,7 @@ function _sendSupervisorSummaries(supervisorMap) {
         <div style="padding: 0 30px 30px 30px;">
           <hr style="border: 0; height: 1px; background: #dadce0; margin: 0 0 20px 0;">
           <p style="font-size: 11px; color: #d93025; text-align: center; font-weight: 500;">
-            This is an automated message from Project Exodus (gUP Play Ops).
+            This is an automated message from Project Exodus (gUP Google One Ops).
           </p>
         </div>
 
@@ -405,7 +405,7 @@ function testApprovalReminderEmail() {
     "Slot 1",              // queue
     "Team Steven",         // team
     "Personal",             // reason
-    "Play NA",             // workgroup
+    "G1 NA",             // workgroup
     "No additional comments", // comments
     new Date(),             // timestamp
     "",                      // emoji (unused param, kept for signature compatibility)
@@ -417,7 +417,7 @@ function testApprovalReminderEmail() {
 
   MailApp.sendEmail({
     to:       testEmail,
-    subject:  "[TEST] Play Leave Application - Approved",
+    subject:  "[TEST] G1 Leave Application - Approved",
     htmlBody: emailBody,
     name:     CONFIG.SENDER_NAME,
     replyTo:  CONFIG.REPLY_TO_EMAIL,
@@ -446,7 +446,7 @@ function testSupervisorSummary() {
           emoji:        "✅",
           queue:        "Slot 3",
           site:         "BGC",
-          workgroup:    "Play Support - Tier 1",
+          workgroup:    "G1 Support - Tier 1",
           attendance:   "97.50%",
           accruals:     "3.5",
           comments:     "Approved — within allocation.",
@@ -462,7 +462,7 @@ function testSupervisorSummary() {
           emoji:        "✅",
           queue:        "Slot 1",
           site:         "Ortigas",
-          workgroup:    "Play Support - Tier 2",
+          workgroup:    "G1 Support - Tier 2",
           attendance:   "93.00%",
           accruals:     "2.0",
           comments:     "Approved.",
@@ -577,7 +577,7 @@ function _sendAdminSummary(adminEmail, sent, skipped, errors) {
 
         <hr style="border:0;height:1px;background:#dadce0;margin:25px 0;">
         <p style="font-size:11px;color:#d93025;text-align:center;font-weight:500;">
-          This is an automated summary from Project Exodus (gUP Play Ops).
+          This is an automated summary from Project Exodus (gUP Google One Ops).
         </p>
       </div>
     </div>`;
@@ -644,8 +644,8 @@ function createEmailTemplate(ldap, date, status, queue, team, reason, workgroup,
     <div style="font-family: 'Google Sans', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
       <!-- Brand Header -->
       <div style="background-color: #f8f9fa; padding: 24px; border-bottom: 1px solid #f1f3f4; display: flex; align-items: center; gap: 12px;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg" width="32" height="32" style="display:block">
-        <span style="font-size: 20px; font-weight: 500; color: #3c4043; font-family: 'Google Sans Display', sans-serif;">Play VL Calendar</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Google_One_icon_%282020%29.svg" width="32" height="32" style="display:block">
+        <span style="font-size: 20px; font-weight: 500; color: #3c4043; font-family: 'Google Sans Display', sans-serif;">G1 VL Calendar</span>
       </div>
 
       <!-- Status Banner -->
@@ -694,7 +694,7 @@ function createEmailTemplate(ldap, date, status, queue, team, reason, workgroup,
       <!-- Footer Info -->
       <div style="padding: 24px 32px; background-color: #f8f9fa; border-top: 1px solid #f1f3f4; text-align: center;">
         <p style="font-size: 11px; color: #70757a; margin: 0 0 8px;">Submitted on ${timestamp} • Reason: ${reason}</p>
-        <p style="font-size: 11px; color: #bdc1c6; margin: 0;">This is an automated notification from Project Exodus (gUP Play Ops). Ref: ${confirmation || "N/A"}</p>
+        <p style="font-size: 11px; color: #bdc1c6; margin: 0;">This is an automated notification from Project Exodus (gUP Google One Ops). Ref: ${confirmation || "N/A"}</p>
       </div>
     </div>
   `;
