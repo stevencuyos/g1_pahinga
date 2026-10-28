@@ -679,7 +679,7 @@ body{--field-border:color-mix(in srgb,var(--text-muted) 45%,transparent)}
 .profile-card{display:flex;align-items:center;gap:16px;padding:16px 18px;border:1.5px solid var(--field-border);border-radius:16px;background:linear-gradient(135deg,var(--blue-bg),var(--bg-surface) 75%)}
 .pc-avatar{position:relative;width:60px;height:60px;border-radius:50%;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--blue-main);color:var(--bg-surface);font:600 22px 'Google Sans',sans-serif;text-transform:uppercase;border:3px solid var(--bg-surface);box-shadow:var(--shadow-sm)}
 .pc-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.pc-avatar.sm{width:32px;height:32px;font-size:13px;border-width:2px}
+.pc-avatar.av-sm{width:32px;height:32px;font-size:13px;border-width:2px}
 .pc-info{min-width:0}
 .pc-name{font:700 17px 'Google Sans Display','Google Sans',sans-serif;color:var(--text-title)}
 .pc-email{font-size:12px;color:var(--text-muted);margin-top:1px}
@@ -689,17 +689,18 @@ body{--field-border:color-mix(in srgb,var(--text-muted) 45%,transparent)}
 
 /* coverage cards */
 #covChips{gap:8px;margin-top:12px;display:flex;flex-wrap:wrap}
-.cov-card{display:inline-flex;align-items:center;gap:8px;padding:4px 10px 4px 4px;border:1.5px solid var(--field-border);border-radius:999px;background:var(--bg-surface);box-shadow:var(--shadow-sm);transition:all 0.15s ease}
-.cov-card:hover{border-color:var(--blue-main)}
-.cov-card .cov-info{display:flex;align-items:center;gap:4px;font-size:13px;line-height:1}
-.cov-card .cov-name{font-weight:700;color:var(--text-main)}
-.cov-card .cov-site{font-size:11px;color:var(--text-muted);font-weight:500}
-.cov-x{width:20px;height:20px;border-radius:50%;border:none;background:var(--bg-cell-hover);color:var(--text-muted);font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-left:2px}
+.cov-card{display:inline-flex;align-items:center;gap:10px;padding:6px 12px 6px 6px;border:1.5px solid var(--blue-main);border-radius:12px;background:var(--blue-bg);color:var(--blue-txt);box-shadow:0 2px 6px rgba(0,90,193,0.12);transition:all 0.2s cubic-bezier(0.4, 0, 0.2, 1)}
+.cov-card:hover{border-color:var(--blue-main);box-shadow:0 4px 10px rgba(0,90,193,0.22);transform:translateY(-1px)}
+.cov-card .pc-avatar{width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;max-width:32px!important;max-height:32px!important;border-radius:50%!important;flex-shrink:0!important;border-width:1.5px!important}
+.cov-card .cov-info{display:flex;flex-direction:column;gap:1px;font-size:13px;line-height:1.2}
+.cov-card .cov-name{font-weight:700;color:var(--blue-txt);font-family:'Google Sans',sans-serif}
+.cov-card .cov-site{font-size:11px;color:var(--blue-main);font-weight:600}
+.cov-x{width:22px;height:22px;border-radius:50%;border:none;background:rgba(0,90,193,0.12);color:var(--blue-main);font-size:14px;font-weight:bold;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-left:4px}
 .cov-x:hover{background:var(--red-bg);color:var(--red-main)}
 
 /* coverage suggested chips */
-.cov-suggest-chip{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border:1.5px solid var(--border-light);border-radius:999px;background:var(--bg-surface);cursor:pointer;transition:all 0.15s ease;font-size:13px;font-weight:600;color:var(--text-main)}
-.cov-suggest-chip:hover{border-color:var(--blue-main);background:var(--blue-bg)}
+.cov-suggest-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border:1.5px solid var(--border-light);border-radius:12px;background:var(--bg-surface);cursor:pointer;transition:all 0.2s ease;font-size:13px;font-weight:600;color:var(--text-main)}
+.cov-suggest-chip:hover{border-color:var(--blue-main);background:var(--blue-bg);color:var(--blue-txt);transform:translateY(-1px);box-shadow:0 2px 6px rgba(0,90,193,0.12)}
 
 /* buttons: one row, Review & Submit larger */
 .original-form-card .sub-btn{background:var(--blue-main);color:var(--bg-surface)}
@@ -1139,6 +1140,11 @@ kbd{display:inline-block;min-width:22px;text-align:center;padding:2px 7px;margin
 .admin-btn-box .material-symbols-rounded:first-child{color:var(--red-main)}
 .filter-section{background:var(--bg-surface);border:1px solid var(--border-light);border-radius:14px;padding:12px 6px 8px;margin:0 4px}
 .filter-title,.preset-title{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--text-muted);margin-bottom:6px}
+.section-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;padding:2px 8px;border-radius:8px;transition:background 0.2s}
+.section-toggle:hover{background:var(--bg-cell-hover)}
+.section-toggle .chevron-icon{font-size:18px;transition:transform 0.2s ease;color:var(--text-muted)}
+.collapsible-section.collapsed .chevron-icon{transform:rotate(-90deg)}
+.collapsible-section.collapsed .section-content{display:none}
 .preset-header{padding:0 8px 6px 16px}
 .legend-item{padding:5px 12px;margin-bottom:0;border-radius:10px;gap:10px;font-size:13.5px}
 .legend-dot{width:18px;height:18px;border-radius:5px}
@@ -1423,7 +1429,7 @@ body.theme-slate-dark .original-form-card,body.theme-warm-dark .original-form-ca
 /* ── Coverage ── */
 #formModal .ldap-list{border-radius:16px;border:1px solid var(--border-light);box-shadow:0 18px 44px -8px rgba(0,0,0,.28);padding:4px}
 #formModal .ldap-opt{border-radius:12px;border-bottom:none}
-#formModal .cov-card{background:var(--bg-surface);border-radius:999px}
+#formModal .cov-card{border-radius:12px}
 
 /* ── Declaration (switch) ── */
 #formModal .decl-box{padding:16px 18px;gap:20px;border-radius:18px;border:1.5px solid color-mix(in srgb,var(--border-light) 85%,transparent);background:var(--bg-surface)}
@@ -2498,37 +2504,58 @@ body.theme-warm-dark {
         </div>
         <div class="preset-list" id="presetList"></div>
       </div>
-      <div class="filter-section">
-        <div class="filter-title">Role</div>
-        <div id="roleFilterContainer">
+      <div class="filter-section collapsible-section">
+        <div class="filter-title section-toggle" onclick="toggleFilterSection(this)">
+          <span>Role</span>
+          <span class="material-symbols-rounded chevron-icon">expand_more</span>
+        </div>
+        <div class="section-content" id="roleFilterContainer">
           <label class="legend-item"><input type="checkbox" checked value="SME" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--green-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">SME</span></label>
           <label class="legend-item"><input type="checkbox" checked value="Supervisor" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--blue-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Supervisor</span></label>
           <label class="legend-item"><input type="checkbox" checked value="Intern TC" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--orange-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Intern TC</span></label>
           <label class="legend-item"><input type="checkbox" checked value="Temp SME" class="ch-filter"><div class="legend-dot" style="--dot-color:var(--purple-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Temp SME</span></label>
         </div>
       </div>
-      <div class="filter-section">
-        <div class="filter-title">Status</div>
-        <label class="legend-item"><input type="checkbox" checked value="approved" class="stat-filter"><div class="legend-dot" style="--dot-color:var(--green-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Approved</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="pending" class="stat-filter"><div class="legend-dot" style="--dot-color:var(--blue-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Pending</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="rejected" class="stat-filter"><div class="legend-dot" style="--dot-color:var(--red-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Rejected</span></label>
+      <div class="filter-section collapsible-section">
+        <div class="filter-title section-toggle" onclick="toggleFilterSection(this)">
+          <span>Status</span>
+          <span class="material-symbols-rounded chevron-icon">expand_more</span>
+        </div>
+        <div class="section-content">
+          <label class="legend-item"><input type="checkbox" checked value="approved" class="stat-filter"><div class="legend-dot" style="--dot-color:var(--green-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Approved</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="pending" class="stat-filter"><div class="legend-dot" style="--dot-color:var(--blue-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Pending</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="rejected" class="stat-filter"><div class="legend-dot" style="--dot-color:var(--red-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl">Rejected</span></label>
+        </div>
       </div>
-      <div class="filter-section">
-        <div class="filter-title">Reason</div>
-        <label class="legend-item"><input type="checkbox" checked value="Out of Town / Vacation" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--blue-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">flight</span>Out of Town</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Personal" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--purple-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">person</span>Personal</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Family Gathering" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--green-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">home</span>Family</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Emergency" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--red-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">emergency</span>Emergency</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Mental Wellness" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--purple-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">self_improvement</span>Mental Wellness</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Birthday" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--pink-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">cake</span>Birthday</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Medical" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--red-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">medical_services</span>Medical</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Broken Hearted" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--neutral-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">favorite</span>Broken Hearted</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Government / Legal" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--orange-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">gavel</span>Gov / Legal</span></label>
-        <label class="legend-item"><input type="checkbox" checked value="Moving House" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--blue-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">local_shipping</span>Moving House</span></label>
+      <div class="filter-section collapsible-section">
+        <div class="filter-title section-toggle" onclick="toggleFilterSection(this)">
+          <span>Reason</span>
+          <span class="material-symbols-rounded chevron-icon">expand_more</span>
+        </div>
+        <div class="section-content">
+          <label class="legend-item"><input type="checkbox" checked value="Out of Town / Vacation" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--blue-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">flight</span>Out of Town</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Personal" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--purple-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">person</span>Personal</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Family Gathering" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--green-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">home</span>Family</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Emergency" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--red-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">emergency</span>Emergency</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Mental Wellness" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--purple-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">self_improvement</span>Mental Wellness</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Birthday" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--pink-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">cake</span>Birthday</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Medical" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--red-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">medical_services</span>Medical</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Broken Hearted" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--neutral-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">favorite</span>Broken Hearted</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Government / Legal" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--orange-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">gavel</span>Gov / Legal</span></label>
+          <label class="legend-item"><input type="checkbox" checked value="Moving House" class="rs-filter"><div class="legend-dot" style="--dot-color:var(--blue-main)"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="lbl"><span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;margin-right:4px">local_shipping</span>Moving House</span></label>
+        </div>
       </div>
-      <div class="filter-section">
-        <div class="filter-title" style="display:flex;justify-content:space-between;align-items:center;padding-right:12px">Sites<button type="button" class="btn-save-preset" onclick="siteAll('.st-filter',function(){saveSettings();renderCalendar()})">All</button></div>
-        <div class="chip-group chip-grid"><label class="filter-chip"><input type="checkbox" checked value="CEB" class="st-filter">CEB</label><label class="filter-chip"><input type="checkbox" checked value="VNCC" class="st-filter">VNCC</label><label class="filter-chip"><input type="checkbox" checked value="UBT" class="st-filter">UBT</label><label class="filter-chip"><input type="checkbox" checked value="DAV" class="st-filter">DAV</label></div>
+      <div class="filter-section collapsible-section">
+        <div class="filter-title section-toggle" onclick="toggleFilterSection(this)">
+          <div style="display:flex;justify-content:space-between;align-items:center;width:100%;padding-right:4px">
+            <span>Sites</span>
+            <button type="button" class="btn-save-preset" onclick="event.stopPropagation();siteAll('.st-filter',function(){saveSettings();renderCalendar()})">All</button>
+          </div>
+          <span class="material-symbols-rounded chevron-icon">expand_more</span>
+        </div>
+        <div class="section-content">
+          <div class="chip-group chip-grid"><label class="filter-chip"><input type="checkbox" checked value="CEB" class="st-filter">CEB</label><label class="filter-chip"><input type="checkbox" checked value="VNCC" class="st-filter">VNCC</label><label class="filter-chip"><input type="checkbox" checked value="UBT" class="st-filter">UBT</label><label class="filter-chip"><input type="checkbox" checked value="DAV" class="st-filter">DAV</label></div>
+        </div>
       </div>
       <div class="fb-panel-bottom">
         <button class="btn-feedback" onclick="document.getElementById('fbOv').classList.add('on')"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM7 9h10v2H7zm0-3h10v2H7zm0 6h7v2H7z"/></svg>Submit Feedback</button>
@@ -6975,7 +7002,7 @@ function renderCovSuggestions(){
   if(suggestions.length > 0){
     chips.innerHTML = suggestions.map(function(p){
       return '<div class="cov-suggest-chip" onclick="addCoverage(\'' + p.ldap + '\')">' +
-             avatarHtml(p.ldap,'sm') + '<span>' + _escHtml(p.ldap) + '</span></div>';
+             avatarHtml(p.ldap,'av-sm') + '<span>' + _escHtml(p.ldap) + '</span></div>';
     }).join('');
     wrap.style.display='block';
   } else {
@@ -6998,7 +7025,7 @@ function covSearch(q){
   });
   list.innerHTML=res.length
     ?res.slice(0,30).map(function(p){
-      return '<div class="ldap-opt" onmousedown="addCoverage(\''+p.ldap+'\')">'+avatarHtml(p.ldap,'sm')+
+      return '<div class="ldap-opt" onmousedown="addCoverage(\''+p.ldap+'\')">'+avatarHtml(p.ldap,'av-sm')+
         '<div class="opt-txt"><b>'+p.ldap+'</b><span>'+_escHtml(p.name||'')+' · '+_escHtml(p.role)+' · '+_escHtml(p.site)+'</span></div></div>';
     }).join('')
     :'<div style="padding:10px 14px;font-size:13px;color:var(--text-muted)">No matches</div>';
@@ -7043,9 +7070,9 @@ function removeCoverage(l){_covSel=_covSel.filter(function(x){return x!==l});ren
 function renderCovChips(){
   document.getElementById('covChips').innerHTML=_covSel.map(function(l){
     var p=(window.roster||[]).find(function(x){return x.ldap===l})||{};
-    var siteText=p.site?' · '+p.site:'';
-    return '<div class="cov-card">'+avatarHtml(l,'sm')+
-      '<div class="cov-info"><span class="cov-name">'+_escHtml(l)+'</span><span class="cov-site">'+_escHtml(siteText)+'</span></div>'+
+    var siteText=p.site?p.site:'';
+    return '<div class="cov-card">'+avatarHtml(l,'av-sm')+
+      '<div class="cov-info"><span class="cov-name">'+_escHtml(l)+'</span>'+(siteText?'<span class="cov-site">'+_escHtml(siteText)+'</span>':'')+'</div>'+
       '<button type="button" class="cov-x" aria-label="Remove '+_escHtml(l)+'" onclick="removeCoverage(\''+l+'\')">×</button></div>';
   }).join('');
   checkCoverageConflicts();
@@ -7758,6 +7785,12 @@ function msToggleSite(b){
 }
 function msSitesAll(){_ms.sites=['CEB','VNCC','UBT','DAV'];msRender()}
 function siteAll(sel,fn){document.querySelectorAll(sel).forEach(function(c){c.checked=true});fn(true)}
+function toggleFilterSection(headerEl){
+  var section = headerEl.closest('.collapsible-section');
+  if(section){
+    section.classList.toggle('collapsed');
+  }
+}
 function msMin(v){return parseInt(v.slice(0,2),10)*60+parseInt(v.slice(3),10)}
 function msCell(p,y,d,vl,dl){
   if(!d.hasData[y])return '<td class="sch-c nd">–</td>';
