@@ -1058,7 +1058,7 @@ body{--field-border:color-mix(in srgb,var(--text-muted) 45%,transparent)}
 .nav-bubble.on{display:inline-block;animation:badgePop .3s cubic-bezier(.34,1.56,.64,1)}
 
 /* ── skeleton loaders (theme-aware) ── */
-.sk{background:linear-gradient(90deg,var(--bg-cell-hover) 25%,var(--border-light) 50%,var(--bg-cell-hover) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite linear;border-radius:8px}
+.sk{background:linear-gradient(90deg,var(--bg-cell-hover) 25%,var(--border-light) 50%,var(--bg-cell-hover) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite linear;border-radius:12px;opacity:.85;transition:opacity .2s ease}
 .sk.r{border-radius:50%}
 .shimmer-num,.shimmer-line{background:linear-gradient(90deg,var(--bg-cell-hover) 25%,var(--border-light) 50%,var(--bg-cell-hover) 75%)!important;background-size:200% 100%!important}
 .sk-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-bottom:12px}
@@ -4646,29 +4646,95 @@ function updatePendBadges(){
 /* ── skeleton loaders ── */
 function _sk(w,h,extra){return '<div class="sk" style="width:'+w+';height:'+h+(extra?';'+extra:'')+'"></div>'}
 function skSched(){
-  var i,c,r,w,h,k,rows='';
+  var i,c,r,kpis='',days='',legend='';
+
+  // 1. Top KPI Summary Cards
+  kpis = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px">'
+    + '<div class="sch-card" style="padding:16px;display:flex;flex-direction:column;gap:10px">'
+      + _sk('70px','12px','border-radius:10px') + _sk('110px','24px','border-radius:8px') + _sk('140px','12px','border-radius:6px')
+    + '</div>'
+    + '<div class="sch-card" style="padding:16px;display:flex;flex-direction:column;gap:10px">'
+      + _sk('70px','12px','border-radius:10px') + _sk('130px','24px','border-radius:8px') + _sk('120px','12px','border-radius:6px')
+    + '</div>'
+    + '<div class="sch-card" style="padding:16px;display:flex;flex-direction:column;gap:10px">'
+      + _sk('70px','12px','border-radius:10px') + _sk('120px','24px','border-radius:8px') + _sk('150px','12px','border-radius:6px')
+    + '</div>'
+  + '</div>';
+
+  // 2. 7-Day Header Strip
+  days = '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:16px">';
+  for(i=0;i<7;i++){
+    days += '<div class="sch-card" style="padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">'
+      + _sk('50%','11px','border-radius:6px')
+      + _sk('70%','20px','border-radius:8px')
+      + _sk('40%','10px','border-radius:4px')
+    + '</div>';
+  }
+  days += '</div>';
+
   if(_sch.focus){
-    for(w=0;w<4;w++){
-      rows+='<div class="sk-wk">'+_sk('50px','12px');
-      for(c=0;c<7;c++)rows+=_sk('100%','58px');
-      rows+='</div>';
+    // My 4 Weeks View Skeleton Loader
+    var wks = '';
+    for(var w=0;w<4;w++){
+      var wCols = '';
+      for(c=0;c<7;c++){
+        wCols += '<div style="display:flex;flex-direction:column;gap:8px;align-items:center;background:var(--bg-cell-hover);padding:10px;border-radius:12px">'
+          + _sk('45px','11px','border-radius:6px')
+          + _sk('100%','38px','border-radius:12px')
+          + _sk('35px','10px','border-radius:4px')
+        + '</div>';
+      }
+      wks += '<div class="sch-card" style="padding:16px;margin-bottom:16px">'
+        + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">'
+          + _sk('120px','20px','border-radius:10px')
+          + '<div style="display:flex;gap:6px">' + _sk('80px','24px','border-radius:12px') + _sk('80px','24px','border-radius:12px') + '</div>'
+        + '</div>'
+        + '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px">' + wCols + '</div>'
+      + '</div>';
     }
-    return '<div aria-busy="true" aria-label="Loading schedule"><div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">'+_sk('110px','34px','border-radius:20px')+'<div class="sk r" style="width:26px;height:26px"></div>'+_sk('140px','28px')+'</div><div class="sch-card">'+rows+'</div></div>';
+    return '<div aria-busy="true" aria-label="Loading my 4 weeks schedule">' + kpis + days + wks + '</div>';
   }
-  var days='';
-  for(i=0;i<7;i++)days+='<div>'+_sk('55%','11px')+_sk('35%','22px')+_sk('45%','11px')+'</div>';
-  for(r=0;r<9;r++){
-    rows+='<div class="sk-row"><div class="sk-who"><div class="sk r" style="width:26px;height:26px;flex:0 0 26px"></div><div style="flex:1">'+_sk('60%','10px','margin-bottom:5px')+_sk('40%','8px')+'</div></div>'+_sk('70%','16px');
-    for(c=0;c<7;c++)rows+=_sk('100%','34px');
-    rows+='</div>';
+
+  // Support Schedule (Team Schedule) Skeleton Loader
+  for(i=0;i<6;i++){
+    legend += _sk('65px','26px','border-radius:13px');
   }
-  var heat='';
-  for(h=0;h<10;h++){
-    heat+='<div class="sk-hrow">';
-    for(k=0;k<7;k++)heat+=_sk('100%','22px');
-    heat+='</div>';
+  var hdr = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:0 4px">'
+    + '<div style="display:flex;align-items:center;gap:12px">' + _sk('130px','22px','border-radius:8px') + _sk('90px','14px','border-radius:6px') + '</div>'
+    + '<div style="display:flex;align-items:center;gap:8px">' + legend + '</div>'
+  + '</div>';
+
+  var thCells = '<th style="padding:10px;text-align:left">' + _sk('70px','12px','border-radius:6px') + '</th>'
+    + '<th style="padding:10px;text-align:center;width:60px">' + _sk('35px','12px','border-radius:6px;margin:0 auto') + '</th>';
+  for(c=0;c<7;c++){
+    thCells += '<th style="padding:10px;text-align:center">' + _sk('45px','12px','border-radius:6px;margin:0 auto') + '</th>';
   }
-  return '<div aria-busy="true" aria-label="Loading schedules"><div class="sk-days">'+days+'</div><div class="sch-split"><div class="sch-card">'+rows+'</div><div class="sch-card">'+heat+'</div></div></div>';
+  var tblRows = '<tr style="border-bottom:1px solid var(--border-light)">' + thCells + '</tr>';
+
+  for(r=0;r<7;r++){
+    var rCells = '<td style="padding:10px"><div style="display:flex;align-items:center;gap:10px">'
+        + '<div class="sk r" style="width:32px;height:32px;flex:0 0 32px"></div>'
+        + '<div style="flex:1;display:flex;flex-direction:column;gap:5px">' + _sk('80%','12px','border-radius:6px') + _sk('50%','10px','border-radius:4px') + '</div>'
+      + '</div></td>'
+      + '<td style="padding:10px;text-align:center"><div class="sk" style="width:40px;height:20px;border-radius:10px;margin:0 auto"></div></td>';
+    for(c=0;c<7;c++){
+      rCells += '<td style="padding:8px 6px;text-align:center"><div class="sk" style="width:100%;height:36px;border-radius:18px"></div></td>';
+    }
+    tblRows += '<tr style="border-bottom:1px solid var(--border-light)">' + rCells + '</tr>';
+  }
+
+  var ftCells = '<td colspan="2" style="padding:12px 10px">' + _sk('90px','14px','border-radius:6px') + '</td>';
+  for(c=0;c<7;c++){
+    ftCells += '<td style="padding:10px;text-align:center"><div class="sk" style="width:44px;height:24px;border-radius:12px;margin:0 auto"></div></td>';
+  }
+  tblRows += '<tr>' + ftCells + '</tr>';
+
+  var tableCard = '<div class="sch-card" style="padding:16px;overflow-x:auto">'
+    + hdr
+    + '<table style="width:100%;border-collapse:collapse;table-layout:fixed">' + tblRows + '</table>'
+  + '</div>';
+
+  return '<div aria-busy="true" aria-label="Loading support schedule">' + kpis + days + tableCard + '</div>';
 }
 function skChart(){
   var h=[34,60,48,80,52,70,90,44,66,58,76,40,62,84];
