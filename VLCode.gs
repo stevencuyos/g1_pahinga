@@ -123,7 +123,7 @@ function doGet() {
     .setTitle('G1 Pahinga - Calendar')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
-    .setFaviconUrl('https://upload.wikimedia.org/wikipedia/commons/2/29/Google_One_icon_%282020%29.svg');
+    .setFaviconUrl('https://www.google.com/favicon.ico');
 }
 
 function getSessionEmail() {
